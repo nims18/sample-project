@@ -4,7 +4,7 @@
 
  if (isset($_POST['loginButton'])) {
  	$username = $_POST['username'];
- 	$password = password_verify($_POST['password']);
+ 	$password = $_POST['password'];
 
  	if ($username && $password) {
  		$query = mysqli_query($conn, "SELECT * FROM users WHERE username = :$username' and password = :$password'");
@@ -17,7 +17,7 @@
  				$db_password = $row['password'];
  				$type = $row['type'];
 
- 				if ($password = $db_password) {
+ 				if (password_verify($password, $db_password)) {
  					$_SESSION['type']  = $type;
  					if ($type == 1) {
  						header('location:admin/index.php');
